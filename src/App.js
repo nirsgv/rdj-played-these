@@ -1,25 +1,30 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import * as HtmlGroup from './components/HtmlGroup';
 import './App.css';
-
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
+import { fetch_tracks } from './reducers/tracks';
 class App extends Component {
-    constructor(){
-        super();
-
+    constructor(props){
+        super(props);
+    };
+    componentDidMount(){
         fetch('http://localhost/rdj-show-trax-project/src/rdj-show-trax/', {
             method: 'post',
         })
         .then(res=>res.json())
-        .then(res => console.log(res));
-
+        .then(res => this.props.fetch_tracks(res));
     };
-  render() {
+
+    render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
+      <HtmlGroup.Header>
+
+      </HtmlGroup.Header>
+      <HtmlGroup.Main>
+
+      </HtmlGroup.Main>
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
@@ -27,5 +32,16 @@ class App extends Component {
     );
   }
 }
+const mapStateToProps = state => ({
+    tracks: state.tracks
+});
 
-export default App;
+const mapDispatchToProps = dispatch => bindActionCreators({
+    //changePage: () => push('/about-us'),
+    fetch_tracks
+}, dispatch);
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(App);

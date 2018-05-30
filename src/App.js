@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as HtmlGroup from './components/HtmlGroup';
+import Items from './containers/Items';
 import './App.css';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
@@ -23,7 +24,7 @@ class App extends Component {
 
       </HtmlGroup.Header>
       <HtmlGroup.Main>
-
+        <Items />
       </HtmlGroup.Main>
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.

@@ -43,6 +43,8 @@ function getAllFields($track) {
     $myObjItem->artist_name = get_field('artist_name',$track_id);
     $myObjItem->album_title = get_field('album_title',$track_id);
     $myObjItem->release_year = get_field('release_year',$track_id);
+    $myObjItem->genres = get_field('genres',$track_id);
+    $myObjItem->show = get_field('show',$track_id);
     $myObjItem->artwork = get_field('artwork',$track_id);
 
 	return $myObjItem;

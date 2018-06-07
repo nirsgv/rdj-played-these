@@ -3,8 +3,8 @@ import Item from '../components/Item';
 import {bindActionCreators} from 'redux'
 import {connect} from "react-redux";
 import { Ul } from '../components/HtmlGroup';
-
-const Items = ({children, className='', id='', tracks=[]}) => {
+import { expand_track } from '../reducers/tracks';
+const Items = ({children, className='', id='', tracks=[], expand_track}) => {
 
 
 /*    let mainItems,
@@ -39,7 +39,7 @@ const Items = ({children, className='', id='', tracks=[]}) => {
                 {
                 Array.isArray(tracks.tracksData)
                     ? tracks.tracksData.map((item, index, arr) => {
-                        return (<Item key={index} item={item}>123</Item>)
+                        return (<Item key={index} item={item} expand_track={expand_track}>123</Item>)
                     })
                     : ''
                 }
@@ -54,6 +54,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     //changePage: () => push('/about-us'),
+    expand_track
 }, dispatch);
 
 export default connect(

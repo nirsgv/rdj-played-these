@@ -1,21 +1,25 @@
 import uuid from 'uuid';
 export const FETCH_TRACKS = 'tracks/FETCH_TRACKS';
+export const EXPAND_TRACK = 'tracks/EXPAND_TRACK';
 
-const initialChosenLayedId = uuid.v4();
 
 const initialState = {
     tracksData: 2,
-    layerCount: 2,
-    chosenLayerId: initialChosenLayedId,
-    chosenLayerIdx: 0,
+    selectedTrackId: null,
 };
 
 export default (state = initialState, action) => {
   console.log(state);
   console.log(action.payload);
   switch (action.type) {
+      case EXPAND_TRACK:
+          return {
+          ...state,
+          selectedTrackId: action.payload
+      };
       case FETCH_TRACKS:
-      return {
+
+          return {
           ...state,
           tracksData: action.payload
       };
@@ -23,6 +27,16 @@ export default (state = initialState, action) => {
       return state;
   }
 }
+
+export const expand_track = (id) => {
+    console.log(id);
+    return dispatch => {
+        dispatch({
+            type: EXPAND_TRACK,
+            payload: id
+        })
+    }
+};
 
 export const fetch_tracks = (res) => {
     let resWithIds = res.map((item, index, arr) => {

@@ -20,7 +20,7 @@ class App extends Component {
     render() {
     return (
       <div className="App">
-      <HtmlGroup.Header>
+      <HtmlGroup.Header className='main-header'>
 
       </HtmlGroup.Header>
       <HtmlGroup.Main>

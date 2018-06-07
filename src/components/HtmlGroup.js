@@ -19,10 +19,22 @@ export const Ul = ({children, className='', id=''}) => (
         {children}
     </ul>
 );
+export const Li = ({children, className='', id=''}) => (
+    <li className={className} id={id}>
+        {children}
+    </li>
+);
+
 export const Span = ({children, className='', id=''}) => (
     <span className={className} id={id}>
         {children}
     </span>
+);
+
+export const Ahref = ({children, className='', id='', href=''}) => (
+    <a href={href} className={className} id={id}>
+        {children}
+    </a>
 );
 
 export const Img = ({className='', id='', src='', alt=''}) => (

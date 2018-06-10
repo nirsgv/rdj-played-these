@@ -19,8 +19,8 @@ export const Ul = ({children, className='', id=''}) => (
         {children}
     </ul>
 );
-export const Li = ({children, className='', id=''}) => (
-    <li className={className} id={id}>
+export const Li = ({children, className='', id='', onClick=null}) => (
+    <li className={className} id={id} onClick={onClick}>
         {children}
     </li>
 );

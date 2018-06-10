@@ -30,7 +30,7 @@ const Item = (props) => {
             : <Span className={`${txtLabel} ${link ? 'available' : 'unavailable'}`}>{txtLabel}</Span>
     )};
         return(
-        <div className="thumb" onMouseEnter={() => {props.expand_track(id)}}>
+        <div className="thumb" onClick={() => {props.expand_track(id)}}>
             <div className="thumb-image">
                 {artwork.sizes && console.log(artwork.sizes)}
                 <Img src={artwork.sizes ? artwork.sizes.large : ''}

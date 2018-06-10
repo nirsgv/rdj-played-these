@@ -1,7 +1,10 @@
 .App {
   text-align: center;
 }
-
+*, *:before, *:after{
+   margin: 0;
+   padding: 0;
+ }
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
@@ -65,10 +68,44 @@ img.originally-tall{
 }
 ul {
   list-style: none;
+  text-align: left;
 }
 ul > li {
   display: inline-block;
 }
 header.main-header{
-  background-color: #1e8cbe;
+  background-color: #23564f;
+  height: 54px;
+}
+
+ul.filter-by.items {
+    font-size: 9px;
+    color: #eee;
+}
+
+nav.filter-master {
+    height: auto;
+    background-color: #eee;
+    padding: 4px 0 0 0;
+}
+
+nav.filter-detail {
+    min-height: 22px;
+    height: auto;
+    background-color: #888;
+    color: #fff;
+    padding: 4px 0 0 0;
+}
+
+li.filters,li.filter-by {
+    margin: 6px 10px;
+    border-radius: 40px;
+    background-color: rgba(0,0,0,0.2);
+    padding: 3px 9px;
+}
+li.filters.master.expanded {
+  color: #333;
+}
+li.filters.master {
+  color: #aaa;
 }

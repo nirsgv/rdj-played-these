@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as HtmlGroup from './components/HtmlGroup';
 import Items from './containers/Items';
+import Filters from './containers/filters/Filters';
 import './App.css';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
@@ -21,9 +22,9 @@ class App extends Component {
     return (
       <div className="App">
       <HtmlGroup.Header className='main-header'>
-
       </HtmlGroup.Header>
-      <HtmlGroup.Main>
+          <Filters/>
+          <HtmlGroup.Main>
         <Items />
       </HtmlGroup.Main>
         <p className="App-intro">

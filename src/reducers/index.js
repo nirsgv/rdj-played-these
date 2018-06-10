@@ -1,12 +1,13 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 import tracks from './tracks';
+import filters from './filters';
 
 export default combineReducers({
   router: routerReducer,
-  tracks
+  tracks,
+  filters,
   //layers,
-  //filters,
   //ranger,
   //counter,
   //bkgSelectionPopup

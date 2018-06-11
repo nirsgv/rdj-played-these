@@ -2,6 +2,7 @@ import uuid from 'uuid';
 
 export const EXPAND_FILTER = 'filters/EXPAND_FILTER';
 export const TOGGLE_CHOSEN_DETAIL= 'filters/TOGGLE_CHOSEN_DETAIL';
+export const ACTIVATE_FILTER= 'filters/ACTIVATE_FILTER';
 
 
 const initialState = {
@@ -156,6 +157,11 @@ export default (state = initialState, action) => {
                 ...state,
                 filter_group: action.payload
             };
+            case ACTIVATE_FILTER:
+            return {
+                ...state,
+                filter_group: action.payload
+            };
         case TOGGLE_CHOSEN_DETAIL:
             return {
                 ...state,
@@ -165,6 +171,27 @@ export default (state = initialState, action) => {
             return state;
     }
 }
+
+export const activate_filter = (itemIndex,filter_group,tmpKey) => {
+    console.log(itemIndex,filter_group);
+    console.log(tmpKey);
+    if(tmpKey==='tags_filter'){itemIndex=0}
+    if(tmpKey==='decade_filter'){itemIndex=1}
+    let filter_group_activate_toggled = filter_group.map((item, index, arr) => {
+        const tmpKey =  Object.keys(item)[0];
+        console.log(item);
+        console.log(item[tmpKey]);
+        itemIndex === index && !item[tmpKey].activated ? item[tmpKey].activated = true : item[tmpKey].activated = false;
+            return item;
+        }
+    );
+    return dispatch => {
+        dispatch({
+            type: ACTIVATE_FILTER,
+            payload: filter_group_activate_toggled
+        })
+    }
+};
 
 export const expand_filter = (itemIndex,filter_group) => {
     let filter_group_expand_toggled = filter_group.map((item, index, arr) => {

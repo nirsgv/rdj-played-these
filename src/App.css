@@ -109,3 +109,7 @@ li.filters.master.expanded {
 li.filters.master {
   color: #aaa;
 }
+button.button{
+  width: 40px;
+  height: 40px;
+}

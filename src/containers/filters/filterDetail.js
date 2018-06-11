@@ -1,9 +1,7 @@
 import React from 'react'
 import { Ul, Li, Hnum } from '../../components/HtmlGroup';
-const FilterDetail = ({children, className='', id='', onClick=null, filter_group=null, expand_filter, toggle_chosen_detail}) => {
+const FilterDetail = ({children, className='', id='', onClick=null, filter_group=null, expand_filter, toggle_chosen_detail, activate_filter}) => {
     const filtered_filter_group = filter_group ? filter_group.filter(word => {
-        //debugger;
-        //console.log(word);
         const tmpKey = Object.keys(word)[0];
         return word[tmpKey].expanded === true;
     }) : [];
@@ -14,7 +12,7 @@ const FilterDetail = ({children, className='', id='', onClick=null, filter_group
             <nav className={"filter-detail"}>
                 <Ul className={`filters detail ${className}`} id="filter-by-list">
                     {chosen_filtered_filter_group[tmpKey].items.map((item, index, arr) => {
-                            console.log(item);
+                            console.log(item.tagName);
                             const itemIndex = Number(index);
                             const chosenClassName = item.chosen ? 'chosen' : 'unchosen';
                             return (
@@ -28,25 +26,11 @@ const FilterDetail = ({children, className='', id='', onClick=null, filter_group
                     )
                 }
         </Ul>
+                <div className="button-strip">
+                    <button className="button" onClick={() => activate_filter(2,filter_group,tmpKey)}></button>
+                </div>
     </nav>
     )
 };
-
-/*
-                return (
-                    <Ul className="filter-by items">
-                    {items.map((itemX, indexX, arrX) => {
-                        console.log(itemX);
-                            return (
-                                <Li className={`filter-by item ${itemX}`}>
-                                    {itemX}
-                                </Li>
-                                )
-                             }
-                         )}
-                    </Ul>
-                    )
-*/
-
 
 export default FilterDetail;

@@ -4,41 +4,23 @@ import {bindActionCreators} from 'redux'
 import {connect} from "react-redux";
 import { Ul } from '../components/HtmlGroup';
 import { expand_track } from '../reducers/tracks';
-const Items = ({children, className='', id='', tracks=[], expand_track}) => {
-
-
-/*    let mainItems,
-        filteredItems,
-        filteredItemsDisplay,
-        selectedFilter;
-    mainItems=this.props.data.shows;
-    selectedFilter=this.props.data.filtered_by[0];
-    filteredItems = mainItems.filter(
-        show => show.tags.includes(selectedFilter) ||
-        selectedFilter==='ALL_TAG'
-    );
-    filteredItemsDisplay = filteredItems.map((layer,index,array) => {
-        const id = layer.id;
-        return(
-        <li className="item"
-            key={index}
-            onClick={this.props.openPopup.bind(this,id)}
-            dataId={layer.id}
-        >
-           <Item data={layer}
-           />
-        </li>
-        )
-    });*/
-    //console.log(mainItems);
-    //console.log(filteredItems);
+const Items = ({children, className='', id='', tracks=[], filters=[], expand_track}) => {
     console.log(tracks.tracksData);
+    function hasIntersection(value) {
+        const itemGenres = value.genres;
+        const chosens = filters.filter_group[0].tags_filter.items.filter((item)=>{return item.chosen});
+        const chosenFilterGenres = chosens.map((item)=>{return item.name});
+        const intersection = itemGenres && itemGenres.filter(val => -1 !==  chosenFilterGenres.indexOf(val));
+        return intersection.length > 0 ? value : '';
+    }
     return(
         <div className="items-holder">
             <Ul className="items">
                 {
                 Array.isArray(tracks.tracksData)
-                    ? tracks.tracksData.map((item, index, arr) => {
+                    ? tracks.tracksData
+                        .filter(hasIntersection,tracks.tracksData.genres)
+                        .map((item, index, arr) => {
                         return (<Item key={index} item={item} expand_track={expand_track}>123</Item>)
                     })
                     : ''
@@ -49,7 +31,8 @@ const Items = ({children, className='', id='', tracks=[], expand_track}) => {
 };
 
 const mapStateToProps = state => ({
-    tracks: state.tracks
+    tracks: state.tracks,
+    filters: state.filters
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({

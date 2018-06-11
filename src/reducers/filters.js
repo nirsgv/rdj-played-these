@@ -184,18 +184,9 @@ export const expand_filter = (itemIndex,filter_group) => {
 export const toggle_chosen_detail = (itemIndex,filter_group) => {
     let chosen_toggled_filter_group = filter_group.map((item, index, arr) => {
         const tmpKey =  Object.keys(item)[0];
-        console.log('item',item);
-        console.log('arr',arr);
-        console.log('tmpKey',tmpKey);
-        console.log(item[tmpKey].expanded);
-        const active = item[tmpKey].expanded;
         const itemsLenForTmpkey = item[tmpKey].items.length;
-        console.log( item[tmpKey].items[itemIndex]);
-        //const ddddd = item[tmpKey].items[itemIndex].chosen;
-        console.log(tmpKey);
-        console.log(active);
-        console.log(item[tmpKey]===arr[tmpKey]);
-       if(itemIndex<itemsLenForTmpkey) {item[tmpKey].items[itemIndex].chosen = (active ? !item[tmpKey].items[itemIndex].chosen : item[tmpKey].items[itemIndex].chosen)};
+        const itemTmpKey = item[tmpKey];
+       if(itemIndex<itemsLenForTmpkey) {itemTmpKey.items[itemIndex].chosen = (itemTmpKey.expanded ? !itemTmpKey.items[itemIndex].chosen : itemTmpKey.items[itemIndex].chosen)};
             return item;
         }
     );

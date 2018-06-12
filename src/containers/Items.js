@@ -14,15 +14,6 @@ const Items = ({children, className='', id='', tracks=[], filters=[], expand_tra
         return hasIntersection(itemGenres,chosenFilterGenres,value);
     };
 
-    function startsWithstringIntersection(searchActiveString) {
-        return (item,index,array) => {
-            const searchString = searchActiveString.toLowerCase();
-            const trackTitle = item.track_title ? item.track_title.toLowerCase() : '';
-            const atristName = item.artist_name ? item.artist_name.toLowerCase() : '';
-            const recordLabel = item.record_label ? item.record_label.toLowerCase() : '';
-            return trackTitle.indexOf(searchString) != -1 || atristName.indexOf(searchString) != -1 || recordLabel.indexOf(searchString) != -1;
-        }
-    }
     const hasIntersection = (a,b,value) => {
         const intersection = a && a.filter(val => -1 !==  b.indexOf(val));
         return intersection.length > 0 ? value : '';
@@ -53,6 +44,17 @@ const Items = ({children, className='', id='', tracks=[], filters=[], expand_tra
         }
         return boolean;
     };
+
+    function startsWithstringIntersection(searchActiveString) {
+        return (item,index,array) => {
+            const searchString = searchActiveString.toLowerCase();
+            const trackTitle = item.track_title ? item.track_title.toLowerCase() : '';
+            const atristName = item.artist_name ? item.artist_name.toLowerCase() : '';
+            const recordLabel = item.record_label ? item.record_label.toLowerCase() : '';
+            return trackTitle.indexOf(searchString) != -1 || atristName.indexOf(searchString) != -1 || recordLabel.indexOf(searchString) != -1;
+        }
+    }
+
     return(
         <div className="items-holder">
             {searchActiveString}
@@ -63,8 +65,10 @@ const Items = ({children, className='', id='', tracks=[], filters=[], expand_tra
                         .filter(tagsIntersection)
                         .filter(decadeIntersection)
                         .filter(startsWithstringIntersection(searchActiveString))
-                        .map((item, index, arr) => {
-                        return (<Item key={index} item={item} expand_track={expand_track}>123</Item>)
+                        .map((item, index) => {
+                        return (
+                            <Item key={index} item={item} expand_track={expand_track}>123</Item>
+                        )
                     })
                     : ''
                 }

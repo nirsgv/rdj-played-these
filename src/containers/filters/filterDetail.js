@@ -13,10 +13,8 @@ const FilterDetail = ({children, className='', id='', onClick=null, filter_group
             <nav className={"filter-detail"}>
                 <Ul className={`filters detail ${className}`} id="filter-by-list">
                     {chosen_filtered_filter_group[tmpKey].items.map((item, index, arr) => {
-                            const itemIndex = Number(index);
-                            console.log(arr);
-                            const chosenClassName = item.chosen ? 'chosen' : 'unchosen';
-
+                        const itemIndex = Number(index);
+                        const chosenClassName = item.chosen ? 'chosen' : 'unchosen';
                         return (
                                 arr.length>1
                                 ?

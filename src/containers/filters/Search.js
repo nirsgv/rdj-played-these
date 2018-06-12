@@ -3,12 +3,11 @@ import { Ul, Li, Hnum } from '../../components/HtmlGroup';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {set_search_string} from "../../reducers/filters";
-const Search = ({children, className='', id='', onClick=null, filter_group=null, expand_filter, filters, searchActiveString, set_search_string}) => {
-
-   //const { searchActiveString } = filters.filter_group[2].search;
+const Search = ({children, className='', id='', onClick=null, filter_group=null, expand_filter, filters, set_search_string}) => {
+const { searchActiveString } = filters;
    return (
             <nav className={"filter-detail"}>
-                <input type="text" name="title" value={searchActiveString} onChange={(event) => set_search_string(event.target.value)}/>
+                <input type="text" name="title" defaultValue={searchActiveString} value={searchActiveString} onChange={(event) => set_search_string(event.target.value)}/>
             </nav>
     )
 };

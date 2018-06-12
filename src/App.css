@@ -113,3 +113,9 @@ button.button{
   width: 30px;
   height: 30px;
 }
+.filter-by.item{
+  transition: all 0.1s ease-in;
+}
+.filter-by.item.chosen{
+  background-color: #23564f;
+}

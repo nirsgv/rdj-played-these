@@ -5,41 +5,27 @@ import {connect} from "react-redux";
 import { Ul } from '../components/HtmlGroup';
 import { expand_track } from '../reducers/tracks';
 const Items = ({children, className='', id='', tracks=[], filters=[], expand_track}) => {
-    //console.log(filters.filter_group[2].search.searchActiveString);
-    //const { searchActiveString } = filters.filter_group[2].search;
-    //console.log(filters.filter_group[2].searchActiveString);
         const searchActiveString = filters.searchActiveString;
-        console.log(searchActiveString);
-    const inov = filters.searchActiveString;
-    const stringIntersection = (value) => {
 
-
-        //let pos = ttt.indexOf(searchActiveString); // 2
-        console.log(value);
-        console.log(value.track_title.toLowerCase());
-        console.log(value.album_title.toLowerCase());
-        console.log(value.artist_name.toLowerCase());
-        console.log(value.record_label.toLowerCase());
-        //console.log(pos);
-
-
-        let str = "Hello world, welcome to the universe.";
-        //let n = value.track_title.indexOf(searchActiveString);
-
-        return (value);
-    };
     const tagsIntersection = (value) => {
         const itemGenres = value.genres;
         const chosens = filters.filter_group[0].tags_filter.items.filter((item)=>{return item.chosen});
         const chosenFilterGenres = chosens.map((item)=>{return item.name});
         return hasIntersection(itemGenres,chosenFilterGenres,value);
     };
+
+    function startsWithstringIntersection(searchActiveString) {
+        return (item,index,array) => {
+            const searchString = searchActiveString.toLowerCase();
+            const trackTitle = item.track_title ? item.track_title.toLowerCase() : '';
+            const atristName = item.artist_name ? item.artist_name.toLowerCase() : '';
+            const recordLabel = item.record_label ? item.record_label.toLowerCase() : '';
+            return trackTitle.indexOf(searchString) != -1 || atristName.indexOf(searchString) != -1 || recordLabel.indexOf(searchString) != -1;
+        }
+    }
     const hasIntersection = (a,b,value) => {
         const intersection = a && a.filter(val => -1 !==  b.indexOf(val));
         return intersection.length > 0 ? value : '';
-    };
-    const niceFilter = (value) => {
-        return value;
     };
 
     const decadeIntersection = (value) => {
@@ -69,13 +55,14 @@ const Items = ({children, className='', id='', tracks=[], filters=[], expand_tra
     };
     return(
         <div className="items-holder">
+            {searchActiveString}
             <Ul className="items">
                 {
                 Array.isArray(tracks.tracksData)
                     ? tracks.tracksData
                         .filter(tagsIntersection)
                         .filter(decadeIntersection)
-                        .filter(stringIntersection)
+                        .filter(startsWithstringIntersection(searchActiveString))
                         .map((item, index, arr) => {
                         return (<Item key={index} item={item} expand_track={expand_track}>123</Item>)
                     })

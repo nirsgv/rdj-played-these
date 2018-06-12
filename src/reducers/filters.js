@@ -3,6 +3,7 @@ import uuid from 'uuid';
 export const EXPAND_FILTER = 'filters/EXPAND_FILTER';
 export const TOGGLE_CHOSEN_DETAIL= 'filters/TOGGLE_CHOSEN_DETAIL';
 export const ACTIVATE_FILTER= 'filters/ACTIVATE_FILTER';
+export const SET_SEARCH_STRING= 'filters/SET_SEARCH_STRING';
 
 
 const initialState = {
@@ -110,42 +111,21 @@ const initialState = {
             }
         },
         {
-            decade_filter2: {
+            search: {
+                searchFilter: true,
                 activated: true,
                 expanded: false,
-                tagName: 'decade',
+                tagName: 'search',
+                searchActiveString: '',
                 items: [
-                    {
-                        name:"80-85",
-                        chosen: false
-                    },                {
-                        name:"85-90",
-                        chosen: false
-                    },                {
-                        name:"90-95",
-                        chosen: false
-                    },                {
-                        name:"95-00",
-                        chosen: false
-                    },                {
-                        name:"00-05",
-                        chosen: false
-                    },                {
-                        name:"05-10",
-                        chosen: false
-                    },                {
-                        name:"10-15",
-                        chosen: false
-                    },                {
-                        name:"15-20",
-                        chosen: false
-                    }
+                    {}
                 ]
 
             }
         }
     ],
     selectedTrackId: null,
+    searchActiveString: '',
 };
 
 export default (state = initialState, action) => {
@@ -167,20 +147,28 @@ export default (state = initialState, action) => {
                 ...state,
                 filter_group: action.payload
             };
+            case SET_SEARCH_STRING:
+            return {
+                ...state,
+                searchActiveString: action.payload
+            };
         default:
             return state;
     }
 }
 
-export const activate_filter = (itemIndex,filter_group,tmpKey) => {
-    console.log(itemIndex,filter_group);
-    console.log(tmpKey);
+export const activate_filter = (filter_group,tmpKey) => {
+    let itemIndex=null;
     if(tmpKey==='tags_filter'){itemIndex=0}
     if(tmpKey==='decade_filter'){itemIndex=1}
+    if(tmpKey==='search'){itemIndex=2}
     let filter_group_activate_toggled = filter_group.map((item, index, arr) => {
         const tmpKey =  Object.keys(item)[0];
+
         console.log(item);
-        console.log(item[tmpKey]);
+        console.log(item[tmpKey].activated);
+        const act = item[tmpKey].activated;
+
         itemIndex === index && !item[tmpKey].activated ? item[tmpKey].activated = true : item[tmpKey].activated = false;
             return item;
         }
@@ -225,3 +213,12 @@ export const toggle_chosen_detail = (itemIndex,filter_group) => {
     }
 };
 
+export const set_search_string = (par) => {
+
+    return dispatch => {
+        dispatch({
+            type: SET_SEARCH_STRING,
+            payload: par
+        })
+    }
+};

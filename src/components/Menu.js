@@ -9,7 +9,7 @@ constructor(props) {
     super(props);
 }
 render() {
-    console.log(this.props.data.menu_items);
+    //console.log(this.props.data.menu_items);
     let menuItems;
     menuItems = this.props.data.menu_items.map((layer,index,array) => {
         return(

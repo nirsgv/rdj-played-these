@@ -5,8 +5,29 @@ import {connect} from "react-redux";
 import { Ul } from '../components/HtmlGroup';
 import { expand_track } from '../reducers/tracks';
 const Items = ({children, className='', id='', tracks=[], filters=[], expand_track}) => {
-    console.log(filters);
-    console.log(tracks.tracksData);
+    //console.log(filters.filter_group[2].search.searchActiveString);
+    //const { searchActiveString } = filters.filter_group[2].search;
+    //console.log(filters.filter_group[2].searchActiveString);
+        const searchActiveString = filters.searchActiveString;
+        console.log(searchActiveString);
+    const inov = filters.searchActiveString;
+    const stringIntersection = (value) => {
+
+
+        //let pos = ttt.indexOf(searchActiveString); // 2
+        console.log(value);
+        console.log(value.track_title.toLowerCase());
+        console.log(value.album_title.toLowerCase());
+        console.log(value.artist_name.toLowerCase());
+        console.log(value.record_label.toLowerCase());
+        //console.log(pos);
+
+
+        let str = "Hello world, welcome to the universe.";
+        //let n = value.track_title.indexOf(searchActiveString);
+
+        return (value);
+    };
     const tagsIntersection = (value) => {
         const itemGenres = value.genres;
         const chosens = filters.filter_group[0].tags_filter.items.filter((item)=>{return item.chosen});
@@ -14,10 +35,13 @@ const Items = ({children, className='', id='', tracks=[], filters=[], expand_tra
         return hasIntersection(itemGenres,chosenFilterGenres,value);
     };
     const hasIntersection = (a,b,value) => {
-        (b.length>0) && console.log(123);
         const intersection = a && a.filter(val => -1 !==  b.indexOf(val));
         return intersection.length > 0 ? value : '';
     };
+    const niceFilter = (value) => {
+        return value;
+    };
+
     const decadeIntersection = (value) => {
         const year = value.release_year;
         const chosens = filters.filter_group[1].decade_filter.items.filter((item)=>{return item.chosen});
@@ -51,6 +75,7 @@ const Items = ({children, className='', id='', tracks=[], filters=[], expand_tra
                     ? tracks.tracksData
                         .filter(tagsIntersection)
                         .filter(decadeIntersection)
+                        .filter(stringIntersection)
                         .map((item, index, arr) => {
                         return (<Item key={index} item={item} expand_track={expand_track}>123</Item>)
                     })

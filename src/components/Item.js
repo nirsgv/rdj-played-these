@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Img, Hnum, Ahref, Span, Ul, Li } from './HtmlGroup';
+import { Img, Hnum, Ahref, Span, Ul, Li } from './htmlGroup';
 import Label from './Label';
 
 const Item = (props) => {
@@ -30,7 +30,8 @@ const Item = (props) => {
             : <Span className={`${txtLabel} ${link ? 'available' : 'unavailable'}`}>{txtLabel}</Span>
     )};
         return(
-        <div className="thumb" onClick={() => {props.expand_track(id)}}>
+        <div className="thumb" onClick={() => {props.expand_track(id);}}>
+
             <div className="thumb-image">
                 {artwork.sizes && console.log(artwork.sizes)}
                 <Img src={artwork.sizes ? artwork.sizes.large : ''}

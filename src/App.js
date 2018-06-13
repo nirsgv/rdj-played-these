@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import * as HtmlGroup from './components/HtmlGroup';
+import * as HtmlGroup from './components/htmlGroup';
 import Items from './containers/Items';
 import Filters from './containers/filters/Filters';
+import BackgroundLayer from './components/backgroundLayer';
 import './App.css';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
@@ -16,21 +17,33 @@ class App extends Component {
         })
         .then(res=>res.json())
         .then(res => this.props.fetch_tracks(res));
-    };
+        window.addEventListener('scroll', this.handleScroll);
 
+    };
+    handleScroll() {
+        var winHeight = window.innerHeight;
+
+        // Annoying to compute doc height due to browser inconsistency
+        var body = document.body;
+        var html = document.documentElement;
+        var docHeight = Math.max( body.scrollHeight, body.offsetHeight,
+            html.clientHeight, html.scrollHeight, html.offsetHeight );
+
+        var value = document.body.scrollTop;
+        console.log(window.pageYOffset);
+    }
     render() {
+        console.log(this.props.tracks);
     return (
-      <div className="App">
-      <HtmlGroup.Header className='main-header'>
-      </HtmlGroup.Header>
-          <Filters/>
-          <HtmlGroup.Main>
-        <Items />
-      </HtmlGroup.Main>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+          <div className="App">
+          <HtmlGroup.Header className='main-header'>
+          </HtmlGroup.Header>
+              <Filters/>
+              <HtmlGroup.Main>
+                 <BackgroundLayer selectedTrackId={this.props.tracks.selectedTrackId} tracksData={this.props.tracks.tracksData}/>
+                 <Items />
+              </HtmlGroup.Main>
+          </div>
     );
   }
 }

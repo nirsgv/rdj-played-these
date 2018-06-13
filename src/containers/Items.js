@@ -11,21 +11,30 @@ const Items = ({children, className='', id='', tracks=[], filters=[], expand_tra
         const itemGenres = value.genres;
         const chosens = filters.filter_group[0].tags_filter.items.filter((item)=>{return item.chosen});
         const chosenFilterGenres = chosens.map((item)=>{return item.name});
-        return hasIntersection(itemGenres,chosenFilterGenres,value);
+        return !(chosens.length===0) ? hasIntersection(itemGenres,chosenFilterGenres,value) : value;
     };
 
     const hasIntersection = (a,b,value) => {
         const intersection = a && a.filter(val => -1 !==  b.indexOf(val));
         return intersection.length > 0 ? value : '';
     };
+    function startsWithdecadeIntersection(filters) {
+        return (value,index,array) => {
+            const year = value.release_year;
+            const chosens = filters.filter_group[1].decade_filter.items.filter((item)=>{return item.chosen});
+            const chosenFilterDecades = chosens.map((item)=>{return item.name});
+            const intersection = chosenFilterDecades.filter(val => checkYearAgainstTags(val,year));
+            console.log('chosens ',chosens);
+            console.log('intersection ',intersection);
 
-    const decadeIntersection = (value) => {
-        const year = value.release_year;
-        const chosens = filters.filter_group[1].decade_filter.items.filter((item)=>{return item.chosen});
-        const chosenFilterDecades = chosens.map((item)=>{return item.name});
-        const intersection = chosenFilterDecades.filter(val => checkYearAgainstTags(val,year));
-        return intersection.length > 0 ? value : '';
-    };
+            return chosens.length === 0  //check for no chosen switches in array, if so return all values, otherwise check value for intersection with 'year'
+                ? value
+                :  intersection.length !== 0 //check for intersection in array
+                    ? value
+                    : '';        }
+    }
+
+
     const checkYearAgainstTags = (decade,year) => {
         const yearNum = Number(year);
         let boolean = false;
@@ -47,10 +56,11 @@ const Items = ({children, className='', id='', tracks=[], filters=[], expand_tra
 
     function startsWithstringIntersection(searchActiveString) {
         return (item,index,array) => {
+            const {track_title,artist_name,record_label} = item;
             const searchString = searchActiveString.toLowerCase();
-            const trackTitle = item.track_title ? item.track_title.toLowerCase() : '';
-            const atristName = item.artist_name ? item.artist_name.toLowerCase() : '';
-            const recordLabel = item.record_label ? item.record_label.toLowerCase() : '';
+            const trackTitle = track_title ? track_title.toLowerCase() : '';
+            const atristName = artist_name ? artist_name.toLowerCase() : '';
+            const recordLabel = record_label ? record_label.toLowerCase() : '';
             return trackTitle.indexOf(searchString) != -1 || atristName.indexOf(searchString) != -1 || recordLabel.indexOf(searchString) != -1;
         }
     }
@@ -63,7 +73,7 @@ const Items = ({children, className='', id='', tracks=[], filters=[], expand_tra
                 Array.isArray(tracks.tracksData)
                     ? tracks.tracksData
                         .filter(tagsIntersection)
-                        .filter(decadeIntersection)
+                        .filter(startsWithdecadeIntersection(filters))
                         .filter(startsWithstringIntersection(searchActiveString))
                         .map((item, index) => {
                         return (

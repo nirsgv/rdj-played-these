@@ -1,5 +1,5 @@
 import React from 'react'
-import { Ul, Li, Hnum } from '../../components/HtmlGroup';
+import { Ul, Li, Hnum } from '../../components/htmlGroup';
 
 const FilterMaster = ({children, className='', id='', onClick=null, filter_group, expand_filter , searchFilter}) => (
     <nav className={"filter-master"}>

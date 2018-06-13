@@ -33,14 +33,18 @@ h1,h2,h3,h4,h5,h6{
   text-align: left;
 }
 .items-holder {
-  padding: 20px 10px 0;
+  padding: 0px 1px 0;
+    background-color: #fff;
+    position: relative;
 }
 ul.items{
   margin: 0;
   padding: 0;
   display: grid;
-  grid-gap: 10px;
+  grid-gap: 1px;
   grid-template-columns: 1fr 1fr 1fr;
+    position: relative;
+    z-index: 2;
 }
 .thumb {
   background-color: burlywood;
@@ -118,4 +122,34 @@ button.button{
 }
 .filter-by.item.chosen{
   background-color: #23564f;
+}
+main {
+    padding: 0px 100px;
+    position: relative;
+    overflow: hidden;
+}
+
+.bkg{
+    height: calc(100% + 64px);
+    position: absolute;
+    width: calc(100% + 64px);
+    left: -32px;
+    top: -32px;
+    filter: blur(16px);
+    background-size: contain;
+    background-position-x: center;
+    background-position-y: top;
+}
+.bkg.wrp{
+    filter: none;
+}
+.bkg2{
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    background-size: 3px;
+    background-position-x: center;
+    background-position-y: top;
+    opacity: 0.75;
+    mix-blend-mode: overlay;
 }

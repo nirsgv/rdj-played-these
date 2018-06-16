@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {bindActionCreators} from 'redux'
 import {connect} from "react-redux";
-import { Ul, Li, Hnum } from '../../components/HtmlGroup';
+import { Ul, Li, Hnum } from '../../components/htmlGroup';
 import { expand_filter, toggle_chosen_detail, activate_filter } from "../../reducers/filters";
 import FilterMaster from "./filterMaster";
 import FilterDetail from "./filterDetail";

@@ -1,11 +1,13 @@
 import uuid from 'uuid';
 export const FETCH_TRACKS = 'tracks/FETCH_TRACKS';
 export const EXPAND_TRACK = 'tracks/EXPAND_TRACK';
+export const UNEXPAND_TRACK = 'tracks/UNEXPAND_TRACK';
 
 
 const initialState = {
     tracksData: 2,
     selectedTrackId: null,
+    expanded: null,
 };
 
 export default (state = initialState, action) => {
@@ -15,7 +17,13 @@ export default (state = initialState, action) => {
       case EXPAND_TRACK:
           return {
           ...state,
-          selectedTrackId: action.payload
+          selectedTrackId: action.payload,
+          expanded: true
+      };
+      case UNEXPAND_TRACK:
+          return {
+          ...state,
+          expanded: action.payload
       };
       case FETCH_TRACKS:
 
@@ -34,6 +42,15 @@ export const expand_track = (id) => {
         dispatch({
             type: EXPAND_TRACK,
             payload: id
+        })
+    }
+};
+
+export const unexpand_track = () => {
+    return dispatch => {
+        dispatch({
+            type: UNEXPAND_TRACK,
+            payload: false
         })
     }
 };

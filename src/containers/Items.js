@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Item from '../components/Item';
 import {bindActionCreators} from 'redux'
 import {connect} from "react-redux";
-import { Ul } from '../components/HtmlGroup';
+import { Ul } from '../components/htmlGroup';
 import { expand_track } from '../reducers/tracks';
 const Items = ({children, className='', id='', tracks=[], filters=[], expand_track}) => {
         const searchActiveString = filters.searchActiveString;

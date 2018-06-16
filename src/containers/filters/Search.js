@@ -1,5 +1,5 @@
 import React from 'react'
-import { Ul, Li, Hnum } from '../../components/HtmlGroup';
+import { Ul, Li, Hnum } from '../../components/htmlGroup';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {set_search_string} from "../../reducers/filters";

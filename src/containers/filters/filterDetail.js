@@ -1,5 +1,5 @@
 import React from 'react'
-import { Ul, Li, Hnum } from '../../components/HtmlGroup';
+import { Ul, Li, Hnum } from '../../components/htmlGroup';
 import Search from './Search';
 const FilterDetail = ({children, className='', id='', onClick=null, filter_group=null, expand_filter, toggle_chosen_detail, activate_filter}) => {
     const filtered_filter_group = filter_group ? filter_group.filter(word => {

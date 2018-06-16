@@ -31,8 +31,8 @@ export const Span = ({children, className='', id=''}) => (
     </span>
 );
 
-export const Ahref = ({children, className='', id='', href=''}) => (
-    <a href={href} className={className} id={id}>
+export const Ahref = ({children, className='', id='', href='', target='blank'}) => (
+    <a href={href} className={className} id={id} target={target}>
         {children}
     </a>
 );

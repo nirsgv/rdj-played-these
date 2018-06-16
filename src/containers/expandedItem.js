@@ -80,8 +80,8 @@ console.log(props);
                     {genres && genres.map((item, index, arr) => {
                             return (
                                 <Li className={'genre'} key={index}>
-                                    <Ahref>
-                                        <Hnum num={5}>
+                                    <Ahref target='blank'>
+                                        <Hnum num={5} >
                                             {`${item}, `}
                                         </Hnum>
                                     </Ahref>

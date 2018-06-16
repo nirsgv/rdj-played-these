@@ -8,12 +8,12 @@ import { unexpand_track, expand_track } from '../reducers/tracks';
 
 console.log(unexpand_track);
 
-const ExpandedItem = ({children, className='', tracks=[], filters=[], expandedItem={}, unexpand_track}) => {
+const ExpandedItem = ({children, className='', tracks=[], filters=[], id='', expandedItem={}, unexpand_track}) => {
 console.log(unexpand_track);
     const {tracksData,selectedTrackId=null,expanded=false} = tracks;
     const item = getItemById(selectedTrackId, tracksData);
     return(
-        <div className={`expanded-item-holder ${expanded ? 'active' : 'unactive'}`}>
+        <div className={`expanded-item-holder ${expanded ? 'active' : 'unactive'}`} id={id}>
             {(!(selectedTrackId===null) && expanded) &&
             <ExpandedInner item={item} unexpand_track={unexpand_track} expand_track={expand_track}></ExpandedInner>
             }
@@ -59,19 +59,21 @@ console.log(props);
     return(
         <div className="expanded-item-inner-wrp">
             <button onClick={() => unexpand_track()}>Lower</button>
-            <div className="thumb-image">
+            <div className="expanded-tab-thumb-image">
                 {artwork.sizes && console.log(artwork.sizes)}
-                <Img src={artwork.sizes ? artwork.sizes.large : ''}
+                <Img src={artwork.sizes ? artwork.sizes.thumbnail : ''}
                      alt={artwork.alt}
-                     className={artwork.sizes && artwork.sizes['large-height']>artwork.sizes['large-width']
+                     className={artwork.sizes && artwork.sizes['thumbnail-height']>artwork.sizes['large-width']
                          ? 'originally-tall'
                          : 'originally-wide'
                      }
                 />
             </div>
-            <Hnum num={3}>{artist_name}</Hnum>
-            <Hnum num={4}>{track_title}</Hnum>
-            <Hnum num={4}>{release_year}</Hnum>
+            <div className="expanded-item-inner-txt-wrp">
+                <Hnum num={3} className="expanded-item-inner-txt">{artist_name}</Hnum>
+                <Hnum num={4} className="expanded-item-inner-txt">{track_title}</Hnum>
+                <Hnum num={4} className="expanded-item-inner-txt">{release_year}</Hnum>
+            </div>
             <div className="genres-wrp">
                 <Ul className={'genre-tags'}>
                     <Span>Genres: </Span>

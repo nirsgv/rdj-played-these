@@ -1,20 +1,32 @@
 import React, { Component } from 'react';
 import { Img, Hnum, Ahref, Span, Ul, Li } from './htmlGroup';
 import Label from './Label';
+class Item extends Component {
+    constructor(props){
+        super(props);
+        //set_scroll_offset = const set_scroll_offset.bind
+        this.state={
+            entrance_anima_finished:false
+        }
+    };
 
-const Item = (props) => {
+    finishAnima () {
+        this.setState({entrance_anima_finished:true})
+};
+
+render() {
     const {
-    album_title,
-    artist_name,
-    artwork,
-    id,
-    genres,
-    links,
-    record_label,
-    show,
-    release_year,
-    track_title
-} = props.item;
+        album_title,
+        artist_name,
+        artwork,
+        id,
+        genres,
+        links,
+        record_label,
+        show,
+        release_year,
+        track_title
+    } = this.props.item;
     console.log(artwork);
     genres && console.log(genres);
     show && console.log(show);
@@ -26,11 +38,15 @@ const Item = (props) => {
     } = links;
     const spanOrLink = (link, txtLabel) => {
         return (
-        link ? <Ahref className={`${txtLabel}-link ${link ? 'available' : 'unavailable'}`} href={link}>{txtLabel}</Ahref>
-            : <Span className={`${txtLabel} ${link ? 'available' : 'unavailable'}`}>{txtLabel}</Span>
-    )};
-        return(
-        <div className="thumb" onClick={() => {props.expand_track(id);}}>
+            link ? <Ahref className={`${txtLabel}-link ${link ? 'available' : 'unavailable'}`} href={link}>{txtLabel}</Ahref>
+                : <Span className={`${txtLabel} ${link ? 'available' : 'unavailable'}`}>{txtLabel}</Span>
+        )};
+    return(
+        <div className={`thumb ${!(this.state.entrance_anima_finished) ? 'anima-enlarge' : 'anima-finished'}`}
+             onClick={() => {this.props.expand_track(id);}}
+             onAnimationEnd={() => {this.finishAnima();}}
+
+        >
 
             <div className="thumb-image">
                 {artwork.sizes && console.log(artwork.sizes)}
@@ -42,26 +58,14 @@ const Item = (props) => {
                      }
                 />
             </div>
-             <Hnum num={3}>{artist_name}</Hnum>
-             <Hnum num={4}>{track_title}</Hnum>
-             <Hnum num={4}>{release_year}</Hnum>
-            <div className="genres-wrp">
-                <Ul className={'genre-tags'}>
-                    <Span>Genres: </Span>
-                    {genres && genres.map((item, index, arr) => {
-                        return (
-                            <Li className={'genre'} key={index}>
-                                <Ahref>
-                                    <Hnum num={5}>
-                                        {`${item}, `}
-                                    </Hnum>
-                                </Ahref>
-                            </Li>);
-                        }
-                    )}
-                </Ul>
-            </div>
-            <div className="links-wrp">
+             <Hnum num={3} className={`grid-item-txt`}>{artist_name}</Hnum>
+             <Hnum num={4} className={`grid-item-txt`}>{track_title}</Hnum>
+             <Hnum num={4} className={`grid-item-txt`}>{release_year}</Hnum>
+
+
+
+
+            {/*<div className="links-wrp">
                 <Ul className={'links'}>
                     <Span>Links: </Span>
                     <Li className={'link'}>
@@ -76,16 +80,13 @@ const Item = (props) => {
                     <Li className={'link'}>
                         {spanOrLink(link_youtube,'youtube')}
                     </Li>
-
-
-
-
                 </Ul>
-            </div>
+            </div>*/}
 
         </div>
         )
 
+}
 }
 
 

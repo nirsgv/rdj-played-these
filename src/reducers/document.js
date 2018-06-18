@@ -7,8 +7,8 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-    console.log(state);
-    console.log(action.payload);
+   // console.log(state);
+   // console.log(action.payload);
     switch (action.type) {
         case SET_SCROLL_OFFSET:
             return {

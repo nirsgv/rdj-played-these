@@ -44,7 +44,9 @@ class App extends Component {
                      docScrollHeight={this.props.document.doc_offset_height}
                  />
                  <Items />
-                 <ExpandedItem id={'expanded-item-holder'}/>
+                  <div id="expand_player_group_wrp">
+                      <ExpandedItem id={'expanded-item-holder'}/>
+                  </div>
               </HtmlGroup.Main>
               </ParallaxProvider>
           </div>

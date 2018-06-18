@@ -194,25 +194,9 @@ img.parallex-image {
     height: 100%;
 }
 :root {
-    --expanded-item-holder-height-desktop: 104px;
+    --expanded-item-holder-height-desktop: 154px;
 }
-.expanded-item-holder{
-  transition: bottom 0.3s ease-out;
-    position: fixed;
-    height: var(--expanded-item-holder-height-desktop);
-    width: 100%;
-    background-color: #dfdfdf;
-    left: 0;
-    z-index: 10;
-    filter: drop-shadow(0px 0px 20px #444488);
-  }
-  .expanded-item-holder.unactive{
-        bottom: calc(0px - var(--expanded-item-holder-height-desktop));
-  }
-  .expanded-item-holder.active{
-        bottom: 0;
 
-  }
 .expanded-item-inner-txt-wrp{
     display: inline-block;
     float: left;
@@ -224,12 +208,66 @@ img.parallex-image {
     float: left;
     width: 250px;
 }
-  #expanded-item-holder .links-wrp{
-    width: 240px;
-    float: right;
-  }
+
   .expanded-tab-thumb-image {
     width: 150px;
     float: left;
+}
+
+#expand_player_group_wrp {
+    height:  0px;
+    bottom: 0px;
+    /* outline: 4px dashed red; */
+    background: rebeccapurple;
+    width: 100%;
+    position: fixed;
+    z-index: 9;
+    left: 0;
+}
+#expand_player_group_wrp .react-player-wrp{
+    height: 50px;
+    top: 0;
+}
+ #expand_player_group_wrp .expanded-item-holder .links-wrp{
+    width: 240px;
+    float: right;
+  }
+  #expand_player_group_wrp .expanded-item-holder{
+  transition: bottom 0.3s ease-out;
+    position: fixed;
+    height: var(--expanded-item-holder-height-desktop);
+    width: 100%;
+    background-color: #dfdfdf;
+    left: 0;
+    z-index: 10;
+    filter: drop-shadow(0px 0px 20px #444488);
+  }
+  #expand_player_group_wrp .expanded-item-holder.unactive{
+        bottom: calc(0px - var(--expanded-item-holder-height-desktop));
+  }
+  #expand_player_group_wrp .expanded-item-holder.active{
+        bottom: 0;
+
+  }
+  
+  .player-wrapper,.range-wrp,.controls-wrp{
+    width: 150px;
+    height: 50px;
+    float: left;
+  }
+
+  #expand_player_group_wrp .react-player-wrp {
+    height: 50px;
+    top: 0;
+    display: grid;
+    grid-gap: 14px 21px;
+    grid-template-columns: 0.25fr 1fr 1fr 1.75fr;
+}
+  #expand_player_group_wrp .expanded-item-inner-wrp {
+    height: 50px;
+    top: 0;
+    display: grid;
+    grid-gap: 14px 21px;
+    grid-template-columns: 0.25fr 1fr 1fr 1.75fr;
 }
 

@@ -27,9 +27,9 @@ render() {
         release_year,
         track_title
     } = this.props.item;
-    console.log(artwork);
-    genres && console.log(genres);
-    show && console.log(show);
+    // console.log(artwork);
+    // genres && console.log(genres);
+    // show && console.log(show);
     const {
         link_apple_music,
         link_deezer,
@@ -49,7 +49,6 @@ render() {
         >
 
             <div className="thumb-image">
-                {artwork.sizes && console.log(artwork.sizes)}
                 <Img src={artwork.sizes ? artwork.sizes.large : ''}
                      alt={artwork.alt}
                      className={artwork.sizes && artwork.sizes['large-height']>artwork.sizes['large-width']

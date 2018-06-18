@@ -7,11 +7,11 @@ const BackgroundLayer = (props) => {
     const { selectedTrackId , tracksData=[] ,docScrollHeight} = props;
 
     const item = getItemById(selectedTrackId, tracksData);
-    console.log(item);
+    // console.log(item);
     const styleObj = item.artwork ? {
         backgroundImage:item.artwork.sizes.large
     } : {backgroundImage:'3'};
-    console.log(styleObj);
+    // console.log(styleObj);
 
     const tmp = docScrollHeight/20;
 

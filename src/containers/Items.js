@@ -24,8 +24,8 @@ const Items = ({children, className='', id='', tracks=[], filters=[], expand_tra
             const chosens = filters.filter_group[1].decade_filter.items.filter((item)=>{return item.chosen});
             const chosenFilterDecades = chosens.map((item)=>{return item.name});
             const intersection = chosenFilterDecades.filter(val => checkYearAgainstTags(val,year));
-            console.log('chosens ',chosens);
-            console.log('intersection ',intersection);
+            // console.log('chosens ',chosens);
+            // console.log('intersection ',intersection);
 
             return chosens.length === 0  //check for no chosen switches in array, if so return all values, otherwise check value for intersection with 'year'
                 ? value

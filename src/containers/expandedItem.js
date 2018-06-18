@@ -1,27 +1,37 @@
-import React, { Component } from 'react';
-import Item from '../components/Item';
+import React, { Fragment } from 'react';
+import ReactPlayerWrp from './reactPlayerWrp/reactPlayerWrp'
+
 import {bindActionCreators} from 'redux'
 import {connect} from "react-redux";
 import { getItemById } from '../helper_functions'
 import { Img, Hnum, Ahref, Span, Ul, Li } from '../components/htmlGroup';
-import { unexpand_track, expand_track } from '../reducers/tracks';
+import { unexpand_track, expand_track, set_youtube_track_url } from '../reducers/tracks';
 
-console.log(unexpand_track);
+// console.log(unexpand_track);
+// console.log('set_youtube_track_url',set_youtube_track_url);
 
-const ExpandedItem = ({children, className='', tracks=[], filters=[], id='', expandedItem={}, unexpand_track}) => {
-console.log(unexpand_track);
-    const {tracksData,selectedTrackId=null,expanded=false} = tracks;
+const ExpandedItem = ({children, className='', tracks=[], filters=[], id='', expandedItem={}, unexpand_track, set_youtube_track_url}) => {
+// console.log(unexpand_track);
+// console.log(set_youtube_track_url);
+    const {tracksData,selectedTrackId=null,expanded=false, youtubeTrackUrl=null} = tracks;
     const item = getItemById(selectedTrackId, tracksData);
     return(
         <div className={`expanded-item-holder ${expanded ? 'active' : 'unactive'}`} id={id}>
-            {(!(selectedTrackId===null) && expanded) &&
-            <ExpandedInner item={item} unexpand_track={unexpand_track} expand_track={expand_track}></ExpandedInner>
+            {
+                (!(selectedTrackId === null)) &&
+                <Fragment>
+                    <ReactPlayerWrp youtubeTrackUrl={youtubeTrackUrl}/>
+                    <ExpandedInner item={item} unexpand_track={unexpand_track}
+                                   set_youtube_track_url={set_youtube_track_url}
+                                   expand_track={expand_track}></ExpandedInner>
+
+                </Fragment>
             }
         </div>
     )
 };
 
-const ExpandedInner = ({...props}) => {
+const ExpandedInner = (props) => {
 
 console.log(props);
     const {
@@ -38,6 +48,7 @@ console.log(props);
     } = props.item;
     const {
         unexpand_track,
+        set_youtube_track_url,
     } = props;
 
     const {
@@ -50,10 +61,10 @@ console.log(props);
 
     console.log(props.item);
     console.log(props.item.artist_name);
-    const spanOrLink = (link, txtLabel) => {
+    const SpanOrLink = ({link, txtLabel, children}) => {
         return (
-            link ? <Ahref className={`${txtLabel}-link ${link ? 'available' : 'unavailable'}`} href={link}>{txtLabel}</Ahref>
-                : <Span className={`${txtLabel} ${link ? 'available' : 'unavailable'}`}>{txtLabel}</Span>
+            link ? <Ahref className={`${txtLabel}-link ${link ? 'available' : 'unavailable'}`} href={link}>{children}</Ahref>
+                : <Span className={`${txtLabel} ${link ? 'available' : 'unavailable'}`}>{children}</Span>
         )};
 
     return(
@@ -90,20 +101,35 @@ console.log(props);
                     )}
                 </Ul>
             </div>
+            <div className="play-wrp">
+                <button className={`btn play ${link_youtube ? 'active' : 'not-active'}`} onClick={() => set_youtube_track_url(link_youtube)}>Play</button>
+            </div>
             <div className="links-wrp">
                 <Ul className={'links'}>
                     <Span>Links: </Span>
                     <Li className={'link'}>
-                        {spanOrLink(link_apple_music,'apple')}
+                        <SpanOrLink link={link_apple_music} txtLabel={'apple'}>
+                            <i className="fab fa-apple"></i>
+                            <Span className='link-txt'>apple</Span>
+                        </SpanOrLink>
                     </Li>
                     <Li className={'link'}>
-                        {spanOrLink(link_deezer,'deezer')}
+                        <SpanOrLink link={link_deezer} txtLabel={'deezer'}>
+                            <i className="fas fa-music"></i>
+                            <Span className='link-txt'>deezer</Span>
+                        </SpanOrLink>
                     </Li>
                     <Li className={'link'}>
-                        {spanOrLink(link_spotify,'spotify')}
+                        <SpanOrLink link={link_spotify} txtLabel={'spotify'}>
+                            <i className="fab fa-spotify"></i>
+                            <Span className='link-txt'>spotify</Span>
+                        </SpanOrLink>
                     </Li>
                     <Li className={'link'}>
-                        {spanOrLink(link_youtube,'youtube')}
+                        <SpanOrLink link={link_youtube} txtLabel={'youtube'}>
+                            <i className="fab fa-youtube"></i>
+                            <Span className='link-txt'>youtube</Span>
+                        </SpanOrLink>
                     </Li>
                 </Ul>
             </div>
@@ -119,7 +145,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    unexpand_track
+    unexpand_track,
+    set_youtube_track_url
 }, dispatch);
 
 export default connect(

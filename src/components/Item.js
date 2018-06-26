@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Img, Hnum, Ahref, Span, Ul, Li } from './htmlGroup';
 import Label from './Label';
+import {set_filtering_now} from "../reducers/filters";
 class Item extends Component {
     constructor(props){
         super(props);
@@ -15,6 +16,7 @@ class Item extends Component {
 };
 
 render() {
+    const { filtering_now } = this.props;
     const {
         album_title,
         artist_name,
@@ -42,9 +44,9 @@ render() {
                 : <Span className={`${txtLabel} ${link ? 'available' : 'unavailable'}`}>{txtLabel}</Span>
         )};
     return(
-        <div className={`thumb ${!(this.state.entrance_anima_finished) ? 'anima-enlarge' : 'anima-finished'}`}
+        <div className={`thumb ${!(this.state.entrance_anima_finished) ? 'anima-enlarge' : 'anima-finished'} ${filtering_now ? 'filtering_now' : ''}`}
              onClick={() => {this.props.expand_track(id);}}
-             onAnimationEnd={() => {this.finishAnima();}}
+             onAnimationEnd={() => {this.finishAnima();set_filtering_now(false)}}
 
         >
 

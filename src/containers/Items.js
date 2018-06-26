@@ -4,6 +4,9 @@ import {bindActionCreators} from 'redux'
 import {connect} from "react-redux";
 import { Ul } from '../components/htmlGroup';
 import { expand_track } from '../reducers/tracks';
+import { set_filtering_now } from "../reducers/filters";
+
+
 const Items = ({children, className='', id='', tracks=[], filters=[], expand_track}) => {
         const searchActiveString = filters.searchActiveString;
 
@@ -65,6 +68,7 @@ const Items = ({children, className='', id='', tracks=[], filters=[], expand_tra
         }
     }
 
+    {console.log(filters)}
     return(
         <div className="items-holder">
             {searchActiveString}
@@ -77,7 +81,7 @@ const Items = ({children, className='', id='', tracks=[], filters=[], expand_tra
                         .filter(startsWithstringIntersection(searchActiveString))
                         .map((item, index) => {
                         return (
-                            <Item key={index} item={item} expand_track={expand_track}>123</Item>
+                            <Item key={index} item={item} expand_track={expand_track} set_filtering_now={set_filtering_now} filtering_now={filters.filtering_now}>123</Item>
                         )
                     })
                     : ''
@@ -94,7 +98,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     //changePage: () => push('/about-us'),
-    expand_track
+    expand_track,
+    set_filtering_now
 }, dispatch);
 
 export default connect(

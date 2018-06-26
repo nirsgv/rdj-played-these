@@ -95,85 +95,94 @@ import Duration from './Duration'
 
     render(props){
         const { url, playing=true, volume, muted, loop, played, loaded, duration, playbackRate } = this.state;
-        const SEPARATOR = ' · '
-
-        console.log(props);
-    return (
-        <div className="react-player-wrp" >
-            <div className='player-wrapper'>
-                <ReactPlayer
-                url={this.props.youtubeTrackUrl}
-                loop={true}
-                playing={this.state.playing}
-                width={'50px'}
-                height={'50px'}
-                style={{}}
-                playsinline={true}
-                ref={this.ref}
-                className='react-player'
-                playbackRate={playbackRate}
-                volume={volume}
-                duration={duration}
-                muted={muted}
-                onReady={() => console.log('onReady')}
-                onStart={() => console.log('onStart')}
-                onPlay={this.onPlay}
-                onPause={this.onPause}
-                //onBuffer={() => console.log('onBuffer')}
-                //onSeek={e => console.log('onSeek', e)}
-                onEnded={this.onEnded}
-                onError={e => console.log('onError', e)}
-                onProgress={this.onProgress}
-                onDuration={this.onDuration}
-                />
-            </div>
-            <div className="range-wrp" >
-                <h3>Seek</h3>
-                <input
-                    type='range' min={0} max={1} step='any'
-                    value={played}
-                    onMouseDown={this.onSeekMouseDown}
-                    onChange={this.onSeekChange}
-                    onMouseUp={this.onSeekMouseUp}
-                />
-            </div>
-            <div className="controls-wrp" >
-                <h3>Controls</h3>
-                <button onClick={this.stop}>Stop</button>
-                <button onClick={this.playPause}>{playing ? 'Pause' : 'Play'}</button>
-                <button onClick={this.onClickFullscreen}>Fullscreen</button>
-                <button onClick={this.setPlaybackRate} value={1}>1</button>
-                <button onClick={this.setPlaybackRate} value={1.5}>1.5</button>
-                <button onClick={this.setPlaybackRate} value={2}>2</button>
-            </div>
-            <div className="player-info-wrp" >
-                <h3>Info</h3>
-                <dl>
-                    <dt>volume</dt>
-                    <dd>{volume.toFixed(3)}</dd>
-                </dl>
-                <dl>
-                    <dt>played</dt>
-                    <dd>{played.toFixed(3)}</dd>
-                </dl>
-                <dl>
-                    <dt>loaded</dt>
-                    <dd>{loaded.toFixed(3)}</dd>
-                </dl>
-                <dl>
-                    <dt>duration</dt>
-                    <dd><Duration seconds={duration} /></dd>
-                </dl>
-                <dl>
-                    <dt>elapsed</dt>
-                    <dd><Duration seconds={duration * played} /></dd>
-                </dl>
-                <dl>
-                    <dt>remaining</dt>
-                    <dd><Duration seconds={duration * (1 - played)} /></dd>
-                </dl>
-            </div>
-            {/*
+        const SEPARATOR = ' · ';
+        const {youtubeTrackUrl , nowPlayingdTrackId, tracksData} = this.props;
+        const itemDet = getItemById(nowPlayingdTrackId,tracksData);
+console.dir(this.props);
+console.dir(itemDet);
+        return (
+            <div className="react-player-wrp" >
+                <div className='player-wrapper'>
+                    <ReactPlayer
+                        url={youtubeTrackUrl}
+                        loop={true}
+                        playing={this.state.playing} // handled by local state
+                        width={'50px'}
+                        height={'50px'}
+                        style={{}}
+                        playsinline={true}
+                        ref={this.ref}
+                        className='react-player'
+                        playbackRate={playbackRate}
+                        volume={volume}
+                        duration={duration}
+                        muted={muted}
+                        onReady={() => console.log('onReady')}
+                        onStart={() => console.log('onStart')}
+                        onPlay={this.onPlay}
+                        onPause={this.onPause}
+                        //onBuffer={() => console.log('onBuffer')}
+                        //onSeek={e => console.log('onSeek', e)}
+                        onEnded={this.onEnded}
+                        onError={e => console.log('onError', e)}
+                        //onProgress={this.onProgress}
+                        onDuration={this.onDuration}
+                    />
+                </div>
+                <div className="controls-wrp" >
+                    <h5>Controls</h5>
+                    <button onClick={this.playPause}>{playing ? 'Pause' : 'Play'}</button>
+{/*
+                    <button onClick={this.stop}>Stop</button>
+                    <button onClick={this.onClickFullscreen}>Fullscreen</button>
+                    <button onClick={this.setPlaybackRate} value={.5}>0.5</button>
+                    <button onClick={this.setPlaybackRate} value={1}>1</button>
+                    <button onClick={this.setPlaybackRate} value={1.5}>1.5</button>
+                    <button onClick={this.setPlaybackRate} value={2}>2</button>
+*/}
+                </div>
+                <div className="range-wrp" >
+                    <h5>Seek</h5>
+                    <input
+                        type='range' min={0} max={1} step='any'
+                        value={played}
+                        onMouseDown={this.onSeekMouseDown}
+                        onChange={this.onSeekChange}
+                        onMouseUp={this.onSeekMouseUp}
+                    />
+                </div>
+                <div className="player-info-wrp" >
+                    <h5>Info</h5>
+{/*                    <dl>
+                        <dt>volume</dt>
+                        <dd>{volume.toFixed(3)}</dd>
+                    </dl>
+                    <dl>
+                        <dt>played</dt>
+                        <dd>{played.toFixed(3)}</dd>
+                    </dl>
+                    <dl>
+                        <dt>loaded</dt>
+                        <dd>{loaded.toFixed(3)}</dd>
+                    </dl>*/}
+                    <dl>
+                        <dt>{itemDet.artist_name}</dt>
+                        <dd>{itemDet.track_title}</dd>
+                    </dl>
+                    <dl>
+                        <dt>duration</dt>
+                        <dd><Duration seconds={duration} /></dd>
+                    </dl>
+                    <dl>
+                        <dt>elapsed</dt>
+                        <dd><Duration seconds={duration * played} /></dd>
+                    </dl>
+                    <dl>
+                        <dt>remaining</dt>
+                        <dd><Duration seconds={duration * (1 - played)} /></dd>
+                    </dl>
+                </div>
+                {/*
             <table>
 
                 <h2>State</h2>
@@ -216,8 +225,8 @@ import Duration from './Duration'
                 </tbody></table>
             </table>
             */}
-        </div>
-    )}
+            </div>
+        )}
 };
 
 

@@ -4,12 +4,16 @@ import Items from './containers/Items';
 import ExpandedItem from './containers/expandedItem';
 import Filters from './containers/filters/Filters';
 import BackgroundLayer from './components/backgroundLayer';
+import Logo from './components/logo';
 import './App.css';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import { fetch_tracks } from './reducers/tracks';
 import { set_scroll_offset } from './reducers/document';
 import { ParallaxProvider ,Parallax } from 'react-scroll-parallax';
+import afx from './assets/svg/afx.svg'
+import { set_filtering_now } from "./reducers/filters";
+import face from './assets/svg/face.jpg'
 
 class App extends Component {
     constructor(props){
@@ -34,8 +38,10 @@ class App extends Component {
     return (
           <div className="App">
               <ParallaxProvider>
-              <HtmlGroup.Header className='main-header'>
+              <HtmlGroup.Header className='main-header' style={{backgroundImage: `url()`}}>
+
           </HtmlGroup.Header>
+                  <Logo src={afx} set_filtering_now={this.props.set_filtering_now} filtering_now={this.props.filtering_now}/>
               <Filters/>
               <HtmlGroup.Main>
                  <BackgroundLayer
@@ -55,13 +61,15 @@ class App extends Component {
 }
 const mapStateToProps = state => ({
     tracks: state.tracks,
-    document: state.document
+    document: state.document,
+    filtering_now: state.filters.filtering_now
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     //changePage: () => push('/about-us'),
     fetch_tracks,
-    set_scroll_offset
+    set_scroll_offset,
+    set_filtering_now
 }, dispatch);
 
 export default connect(

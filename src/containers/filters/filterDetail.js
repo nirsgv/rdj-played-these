@@ -1,7 +1,8 @@
 import React from 'react'
 import { Ul, Li, Hnum } from '../../components/htmlGroup';
 import Search from './Search';
-const FilterDetail = ({children, className='', id='', onClick=null, filter_group=null, expand_filter, toggle_chosen_detail, activate_filter}) => {
+import {set_filtering_now} from "../../reducers/filters";
+const FilterDetail = ({children, className='', id='', onClick=null, filter_group=null, expand_filter, toggle_chosen_detail, set_filtering_now, activate_filter}) => {
     const filtered_filter_group = filter_group ? filter_group.filter(word => {
         const tmpKey = Object.keys(word)[0];
         return word[tmpKey].expanded === true;
@@ -19,7 +20,7 @@ const FilterDetail = ({children, className='', id='', onClick=null, filter_group
                                 arr.length>1
                                 ?
                                 <Li key={index} className={`filter-by item ${item.name} ${chosenClassName}`}
-                                onClick={() => toggle_chosen_detail(itemIndex,filter_group)}>
+                                onClick={() => {toggle_chosen_detail(itemIndex,filter_group);set_filtering_now(true)}}>
                                     {item.name}
                                 </Li>
                                 :

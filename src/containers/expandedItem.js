@@ -13,14 +13,18 @@ import { unexpand_track, expand_track, set_youtube_track_url } from '../reducers
 const ExpandedItem = ({children, className='', tracks=[], filters=[], id='', expandedItem={}, unexpand_track, set_youtube_track_url}) => {
 // console.log(unexpand_track);
 // console.log(set_youtube_track_url);
-    const {tracksData,selectedTrackId=null,expanded=false, youtubeTrackUrl=null} = tracks;
+    const {tracksData,selectedTrackId=null,expanded=false, youtubeTrackUrl=null, nowPlayingdTrackId=null} = tracks;
     const item = getItemById(selectedTrackId, tracksData);
     return(
         <div className={`expanded-item-holder ${expanded ? 'active' : 'unactive'}`} id={id}>
+            <button onClick={() => unexpand_track()}>Lower</button>
+
             {
                 (!(selectedTrackId === null)) &&
                 <Fragment>
-                    <ReactPlayerWrp youtubeTrackUrl={youtubeTrackUrl}/>
+                    <ReactPlayerWrp youtubeTrackUrl={youtubeTrackUrl} nowPlayingdTrackId={nowPlayingdTrackId}
+                    tracksData={tracks.tracksData}
+                    />
                     <ExpandedInner item={item} unexpand_track={unexpand_track}
                                    set_youtube_track_url={set_youtube_track_url}
                                    expand_track={expand_track}></ExpandedInner>
@@ -68,45 +72,37 @@ console.log(props);
         )};
 
     return(
+        <Fragment>
+
+        <div className="play-wrp">
+            <button className={`btn play ${link_youtube ? 'active' : 'not-active'}`} onClick={() => set_youtube_track_url(link_youtube,id)}>Play</button>
+        </div>
         <div className="expanded-item-inner-wrp">
-            <button onClick={() => unexpand_track()}>Lower</button>
-            <div className="expanded-tab-thumb-image">
-                {artwork.sizes && console.log(artwork.sizes)}
-                <Img src={artwork.sizes ? artwork.sizes.thumbnail : ''}
-                     alt={artwork.alt}
-                     className={artwork.sizes && artwork.sizes['thumbnail-height']>artwork.sizes['large-width']
-                         ? 'originally-tall'
-                         : 'originally-wide'
-                     }
-                />
-            </div>
             <div className="expanded-item-inner-txt-wrp">
                 <Hnum num={3} className="expanded-item-inner-txt">{artist_name}</Hnum>
                 <Hnum num={4} className="expanded-item-inner-txt">{track_title}</Hnum>
                 <Hnum num={4} className="expanded-item-inner-txt">{release_year}</Hnum>
+                <div className="genres-wrp">
+                    <Ul className={'genre-tags'}>
+                        <Span>Genres: </Span>
+                        {genres && genres.map((item, index, arr) => {
+                                return (
+                                    <Li className={'genre'} key={index}>
+                                        <Ahref target='blank'>
+                                            <Hnum num={5} >
+                                                {`${item}, `}
+                                            </Hnum>
+                                        </Ahref>
+                                    </Li>);
+                            }
+                        )}
+                    </Ul>
+                </div>
             </div>
-            <div className="genres-wrp">
-                <Ul className={'genre-tags'}>
-                    <Span>Genres: </Span>
-                    {genres && genres.map((item, index, arr) => {
-                            return (
-                                <Li className={'genre'} key={index}>
-                                    <Ahref target='blank'>
-                                        <Hnum num={5} >
-                                            {`${item}, `}
-                                        </Hnum>
-                                    </Ahref>
-                                </Li>);
-                        }
-                    )}
-                </Ul>
-            </div>
-            <div className="play-wrp">
-                <button className={`btn play ${link_youtube ? 'active' : 'not-active'}`} onClick={() => set_youtube_track_url(link_youtube)}>Play</button>
-            </div>
+
             <div className="links-wrp">
+                <Span>Links: </Span>
                 <Ul className={'links'}>
-                    <Span>Links: </Span>
                     <Li className={'link'}>
                         <SpanOrLink link={link_apple_music} txtLabel={'apple'}>
                             <i className="fab fa-apple"></i>
@@ -134,6 +130,17 @@ console.log(props);
                 </Ul>
             </div>
         </div>
+            <div className="expanded-tab-thumb-image">
+                <Img src={artwork.sizes ? artwork.sizes.thumbnail : ''}
+                     alt={artwork.alt}
+                     className={artwork.sizes && artwork.sizes['thumbnail-height']>artwork.sizes['large-width']
+                         ? 'originally-tall'
+                         : 'originally-wide'
+                     }
+                />
+            </div>
+
+        </Fragment>
     )
 }
 

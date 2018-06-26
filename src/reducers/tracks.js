@@ -8,6 +8,7 @@ export const SET_YOUTUBE_TRACK_URL = 'tracks/SET_YOUTUBE_TRACK_URL';
 const initialState = {
     tracksData: 2,
     selectedTrackId: null,
+    nowPlayingdTrackId: null,
     youtubeTrackUrl: null,
     expanded: null,
 };
@@ -32,8 +33,9 @@ export default (state = initialState, action) => {
 
           return {
           ...state,
-          youtubeTrackUrl: action.payload
-      };
+          youtubeTrackUrl: action.payload[0],
+          nowPlayingdTrackId: action.payload[1]
+          };
       case FETCH_TRACKS:
 
           return {
@@ -45,12 +47,12 @@ export default (state = initialState, action) => {
   }
 }
 
-export const set_youtube_track_url = (url) => {
+export const set_youtube_track_url = (url,id) => {
     console.log(url);
     return dispatch => {
         dispatch({
             type: SET_YOUTUBE_TRACK_URL,
-            payload: url
+            payload: [url,id]
         })
     }
 };

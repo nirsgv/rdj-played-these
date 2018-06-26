@@ -4,9 +4,11 @@ export const EXPAND_FILTER = 'filters/EXPAND_FILTER';
 export const TOGGLE_CHOSEN_DETAIL= 'filters/TOGGLE_CHOSEN_DETAIL';
 export const ACTIVATE_FILTER= 'filters/ACTIVATE_FILTER';
 export const SET_SEARCH_STRING= 'filters/SET_SEARCH_STRING';
+export const SET_FILTERING_NOW= 'filters/SET_FILTERING_NOW';
 
 
 const initialState = {
+    filtering_now: false,
     filter_group: [
         {
             tags_filter: {
@@ -152,6 +154,11 @@ export default (state = initialState, action) => {
                 ...state,
                 searchActiveString: action.payload
             };
+            case SET_FILTERING_NOW:
+            return {
+                ...state,
+                filtering_now: action.payload
+            };
         default:
             return state;
     }
@@ -162,6 +169,7 @@ export const activate_filter = (filter_group,tmpKey) => {
     if(tmpKey==='tags_filter'){itemIndex=0}
     if(tmpKey==='decade_filter'){itemIndex=1}
     if(tmpKey==='search'){itemIndex=2}
+
     let filter_group_activate_toggled = filter_group.map((item, index, arr) => {
         const tmpKey =  Object.keys(item)[0];
 
@@ -214,10 +222,20 @@ export const toggle_chosen_detail = (itemIndex,filter_group) => {
 };
 
 export const set_search_string = (par) => {
-
     return dispatch => {
         dispatch({
             type: SET_SEARCH_STRING,
+            payload: par
+        })
+    }
+};
+
+
+
+export const set_filtering_now = (par) => {
+    return dispatch => {
+        dispatch({
+            type: SET_FILTERING_NOW,
             payload: par
         })
     }

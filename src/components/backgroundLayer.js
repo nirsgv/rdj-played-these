@@ -17,9 +17,6 @@ const BackgroundLayer = (props) => {
 
     return (
         <div className="bkg-wrp" >
-
-
-
             <div className="bkg" style={{backgroundImage: `url(${styleObj.backgroundImage})`, backgroundPositionY: `${tmp}px` }} />
 
 {/*

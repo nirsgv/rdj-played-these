@@ -23,7 +23,7 @@ class App extends Component {
 
     };
     componentDidMount(){
-        fetch('http://localhost/rdj-pc-3/src/rdj-show-trax/', {
+        fetch('http://localhost/rdj-show-trax-project/src/rdj-show-trax/', {
             method: 'post',
         })
         .then(res=>res.json())

@@ -2,7 +2,7 @@
   "name": "rdj-show-trax-project",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/rdj-pc-3/src/rdj-show-trax/wp-content/themes/rdj-show-trax-theme/build",
+  "homepage": "/rdj-show-trax-project/src/rdj-show-trax/wp-content/themes/rdj-show-trax-theme/build",
   "dependencies": {
     "html-react-parser": "^0.4.2",
     "react": "^16.3.2",

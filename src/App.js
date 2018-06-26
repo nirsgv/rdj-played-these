@@ -39,9 +39,14 @@ class App extends Component {
           <div className="App">
               <ParallaxProvider>
               <HtmlGroup.Header className='main-header' style={{backgroundImage: `url()`}}>
+                  <div className="corner">
+                      <div className="logo_txt">
+                        rdj played these
+                      </div>
+                  </div>
+                  <Logo src={afx} set_filtering_now={this.props.set_filtering_now} filtering_now={this.props.filtering_now}/>
 
           </HtmlGroup.Header>
-                  <Logo src={afx} set_filtering_now={this.props.set_filtering_now} filtering_now={this.props.filtering_now}/>
               <Filters/>
               <HtmlGroup.Main>
                  <BackgroundLayer

@@ -1,6 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=PT+Sans');
+
+
 :root {
     --expanded-item-holder-height-desktop: 154px;
+    --aphex-yellow-weak:#B4DF1D2f;
     --aphex-yellow:#B4DF1D;
+    --drax-blue:#176DD2;
+}
+#root{
+    font-family: 'Nunito', sans-serif;
+    font-family: 'PT Sans', sans-serif;
+
 }
 .App {
   text-align: center;
@@ -120,8 +131,10 @@ ul > li {
   display: inline-block;
 }
 header.main-header{
-  background-color: var(--aphex-yellow);
+  background-color: var(--aphex-yellow-weak);
   height: 54px;
+    position: relative;
+    overflow: hidden;
 }
 
 ul.filter-by.items {
@@ -160,7 +173,8 @@ button.button{
   height: 30px;
 }
 .filter-by.item{
-  transition: all 0.1s ease-in;
+  transition: background-color 0.075s ease-out;
+    cursor: pointer;
 }
 .filter-by.item.chosen{
   background-color: #23564f;
@@ -398,12 +412,38 @@ li.link>a.available{
 
 .logo.filtering_now{
     animation: logo-filtering-now infinite 20s linear;
-    animation-duration: 0.35s;
+    animation-duration: 0.3s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
 
 }
 @keyframes logo-filtering-now {
-     from { transform: scale(.9); }
-     to { transform: scale(1); }
+    0% { transform: scale(1); }
+    15% { transform: scale(.85); }
+    100% { transform: scale(1); }
  }
+
+.corner{
+    width: 300px;
+    height: 300px;
+    background-color: #fff;
+    transform: rotate(-25deg);
+    position: ABSOLUTE;
+    LEFT: -160px;
+    TOP: -82PX;
+    outline: 10px solid #00000011;
+}
+
+.corner .logo_txt{
+    transform: rotate(25deg);
+    color: #000000bb;
+    position: absolute;
+    left: 174px;
+    top: 115px;
+    font-size: 21px;
+    text-align: left;
+    text-transform: uppercase;
+    font-weight: 100;
+    line-height: 17px;
+    width: 105px;
+}

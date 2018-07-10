@@ -12,7 +12,7 @@ const Filters = ({children, className='', id='', filters, expand_filter, toggle_
     return(
     <div className="filters">
         <div className="filters-master-holder">
-            <FilterMaster filter_group={filter_group} expand_filter={expand_filter}/>
+            <FilterMaster filter_group={filter_group} expand_filter={expand_filter}>{children}</FilterMaster>
             <FilterDetail filter_group={filter_group} toggle_chosen_detail={toggle_chosen_detail} set_filtering_now={set_filtering_now} activate_filter={activate_filter}/>
         </div>
     </div>

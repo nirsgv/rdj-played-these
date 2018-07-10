@@ -2,6 +2,7 @@ import React from 'react'
 import { Ul, Li, Hnum } from '../../components/htmlGroup';
 
 const FilterMaster = ({children, className='', id='', onClick=null, filter_group, expand_filter , searchFilter}) => (
+
     <nav className={"filter-master"}>
         <Ul className={`filters master ${className}`}  id="filter-by-list">
             {searchFilter && alert(234)}
@@ -24,6 +25,7 @@ const FilterMaster = ({children, className='', id='', onClick=null, filter_group
                 )
             }
         </Ul>
+        {children}
     </nav>
 );
 

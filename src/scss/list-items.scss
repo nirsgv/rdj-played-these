@@ -1,0 +1,26 @@
+.items-holder {
+  padding: 0px 1px 0;
+  position: relative;
+}
+ul.items{
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-gap: 14px 21px;
+  position: relative;
+  z-index: 2;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  ul.items{
+    grid-template-columns: 1fr 1fr;
+  }}
+@media (min-width: 1024px) {
+  ul.items{
+    grid-template-columns: 1fr 1fr 1fr;
+  }}
+@media (min-width: 1366px) {
+  ul.items{
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }}

@@ -11,7 +11,6 @@ import {connect} from 'react-redux'
 import { fetch_tracks } from './reducers/tracks';
 import { set_scroll_offset } from './reducers/document';
 import { ParallaxProvider ,Parallax } from 'react-scroll-parallax';
-import afx from './assets/svg/afx.svg'
 import { set_filtering_now } from "./reducers/filters";
 import face from './assets/svg/face.jpg'
 
@@ -27,27 +26,33 @@ class App extends Component {
             method: 'post',
         })
         .then(res=>res.json())
-        .then(res => this.props.fetch_tracks(res));
+        .then(res => {this.props.fetch_tracks(res);console.dir(JSON.stringify(res))});
         window.addEventListener('scroll', this.handleScroll);
     };
     handleScroll() {
         this.props.set_scroll_offset(window.pageYOffset);
     }
     render() {
-        console.log(this.props.tracks);
+       // console.log(this.props.tracks);
+       // console.log(this.props.filters);
+       // console.log(this.props.doc_scroll);
+
+
     return (
           <div className="App">
               <ParallaxProvider>
-              <HtmlGroup.Header className='main-header' style={{backgroundImage: `url()`}}>
-                  <div className="corner">
+              <HtmlGroup.Header className={`main-header ${!this.props.doc_scroll ? 'normal' : 'minus-first-strip'}`} >
+                  <div className="logo_txt-wrp">
                       <div className="logo_txt">
                         rdj played these
                       </div>
+                      {!this.props.doc_scroll && <Logo set_filtering_now={this.props.set_filtering_now} filtering_now={this.props.filtering_now} />}
                   </div>
-                  <Logo src={afx} set_filtering_now={this.props.set_filtering_now} filtering_now={this.props.filtering_now}/>
+                  <Filters>
+                      {this.props.doc_scroll ? <Logo set_filtering_now={this.props.set_filtering_now} filtering_now={this.props.filtering_now} /> : ''}
+                  </Filters>
 
           </HtmlGroup.Header>
-              <Filters/>
               <HtmlGroup.Main>
                  <BackgroundLayer
                      selectedTrackId={this.props.tracks.selectedTrackId}
@@ -67,7 +72,9 @@ class App extends Component {
 const mapStateToProps = state => ({
     tracks: state.tracks,
     document: state.document,
-    filtering_now: state.filters.filtering_now
+    filtering_now: state.filters.filtering_now,
+    filters: state.filters,
+    doc_scroll: state.document.doc_offset_height
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({

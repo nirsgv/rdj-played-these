@@ -1,0 +1,21 @@
+@keyframes logo-filtering-now {
+  0% { transform: scale(1); }
+  15% { transform: scale(.85); }
+  100% { transform: scale(1); }
+}
+
+@keyframes entrance-expand {
+  0% { transform: scale(0); }
+  100% { transform: scale(1); }
+}
+
+@keyframes entrance-anima {
+  from {
+    transform: scale(.85);
+    opacity: .75;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
